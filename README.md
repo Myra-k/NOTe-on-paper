@@ -32,7 +32,7 @@ To use this webpage, you will be introduced with a welcome page, once you've sel
 
 ## Review
 
-* URL Of Deployed Application ()
+* URL Of Deployed Application (https://the-notes-app-408163f7ace6.herokuapp.com/)
 
 * URL Of Github Repository (https://github.com/Myra-k/NOTe-on-paper.git)
 

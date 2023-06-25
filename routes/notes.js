@@ -9,7 +9,19 @@ const { json } = require('express');
 
 notes.get('/', (req, res) => {
     console.info(`${req.method} received request for notes`);
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./db/db.json')
+  .then((data) => {
+    try {
+      const jsonData = JSON.parse(data);
+      res.json(jsonData);
+    } catch (error) {
+      res.status(500).json({ error: 'Invalid JSON data' });
+    }
+  })
+  .catch((error) => {
+    res.status(500).json({ error: 'Failed to read from file' });
+  });
+
 });
 
 notes.get('/:note_id', (req, res) => {
@@ -29,9 +41,9 @@ notes.delete('/:note_id', (req, res) => {
     readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const outcome = json.filter((note) => note.id !== noteId);
+      const outcome = json.filter((note) => note.id !== notesId);
 
-      writeToFile('./db/db.json', result);
+      writeToFile('./db/db.json', outcome);
 
       res.json(`This note ${notesId} has been deleted`);
     });
